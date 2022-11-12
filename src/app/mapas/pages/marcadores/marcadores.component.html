@@ -1,0 +1,47 @@
+<ul class="list-group">
+    <li class="list-group-item list-group-item-info"
+        (click)="openModal(content)">
+        +Agregar
+    </li>
+
+    <li class="list-group-item"
+        *ngFor="let item of markers; let i = index"
+        [ngStyle]="{'background-color': item.color}"
+        (click)="goMarker(item.marker)"
+        (dblclick)="deleteMarker(i)">
+        Marker {{i+1}}
+    </li>
+</ul>
+
+<div #mapa class="mapa-container"></div>
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Nuevo marcador</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form (ngSubmit)="addMarker()" [formGroup]="form">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Titulo</label>
+              <input 
+                type="text" 
+                formControlName="titulo"
+                class="form-control" 
+                id="exampleFormControlInput1" 
+                placeholder="Casa">
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Descripción</label>
+              <textarea 
+                class="form-control" 
+                formControlName="descripcion"
+                id="exampleFormControlTextarea1" 
+                rows="3"></textarea>
+            </div>
+            <div class="text-center">
+                <input type="submit" class="btn btn-success" value="Agregar">
+            </div>
+        </form>
+	</div>
+</ng-template>
